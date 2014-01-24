@@ -1,0 +1,21 @@
+{
+  "name": "basil",
+  "version": "0.0.0",
+  "description": "Middleware oriented proxy",
+  "main": "basil.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dawicorti/basil"
+  },
+  "keywords": [
+    "proxy"
+  ],
+  "author": "David Corticchiato",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dawicorti/basil/issues"
+  }
+}
