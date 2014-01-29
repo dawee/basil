@@ -52,10 +52,12 @@ Basil.prototype.listen = function (port) {
 
 Basil.prototype.wakeup = function (clientRequest, response) {
   var handlers = this.handlers;
-  var bundle = {request: {}, reqBody: '', resBody: ''};
+  var bundle = {request: {}, reqBody: new Buffer(0), resBody: new Buffer(0)};
+
+  console.log('wakeup');
 
   clientRequest.on('data', function (buf) {
-    bundle.reqBody += buf.toString();
+    bundle.reqBody = Buffer.concat(bundle.reqBody, buf);
   });
 
   clientRequest.on('end', function () {
@@ -71,7 +73,7 @@ basil.repeat = function (bundle, clientRequest, response, handlers) {
   basil.hydrate(bundle, clientRequest, handlers);
   var proxyRequest = http.request(bundle.request, function(serverResponse) {
     serverResponse.on('data', function (buf) {
-      bundle.resBody += buf.toString();
+      bundle.resBody = Buffer.concat(bundle.resBody, buf);
     });
 
     serverResponse.on('end', function (buf) {
