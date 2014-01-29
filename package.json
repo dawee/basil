@@ -1,6 +1,6 @@
 {
   "name": "basil",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Middleware oriented proxy",
   "main": "basil.js",
   "scripts": {
@@ -17,5 +17,8 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/dawicorti/basil/issues"
+  },
+  "devDependencies": {
+    "mocha": "~1.17.1"
   }
 }

@@ -6,12 +6,17 @@
 
 var url = require('url');
 var http = require('http');
+var basil = Basil;
+
+
+/**
+ * Basil constructor
+ */
 
 function Basil() {
   if (!(this instanceof Basil)) return new Basil;
 
   this.handlers = [];
-  
 }
 
 /**
@@ -54,7 +59,7 @@ Basil.prototype.wakeup = function (clientRequest, response) {
   });
 
   clientRequest.on('end', function () {
-    repeat(bundle, clientRequest, response, handlers);
+    basil.repeat(bundle, clientRequest, response, handlers);
   });
 };
 
@@ -62,15 +67,15 @@ Basil.prototype.wakeup = function (clientRequest, response) {
  * On request end : start repeating server response
  */
 
-var repeat = function (bundle, clientRequest, response, handlers) {
-  hydrate(bundle, clientRequest, handlers);
+basil.repeat = function (bundle, clientRequest, response, handlers) {
+  basil.hydrate(bundle, clientRequest, handlers);
   var proxyRequest = http.request(bundle.request, function(serverResponse) {
     serverResponse.on('data', function (buf) {
       bundle.resBody += buf.toString();
     });
 
     serverResponse.on('end', function (buf) {
-      answer(bundle, clientRequest, response, serverResponse, handlers);
+      basil.answer(bundle, clientRequest, response, serverResponse, handlers);
     });
   });
 
@@ -82,8 +87,8 @@ var repeat = function (bundle, clientRequest, response, handlers) {
  * Write response
  */
 
-var answer = function (bundle, clientRequest, response, serverResponse, handlers) {
-  dehydrate(bundle, serverResponse, handlers);
+basil.answer = function (bundle, clientRequest, response, serverResponse, handlers) {
+  basil.dehydrate(bundle, serverResponse, handlers);
   response.writeHeader(bundle.response.status, bundle.response.headers);
   response.write(bundle.response.body);
   response.end();
@@ -93,34 +98,34 @@ var answer = function (bundle, clientRequest, response, serverResponse, handlers
  * Build request bundle from origin and middlewares
  */
 
-var hydrate = function (bundle, request, handlers) {
+basil.hydrate = function (bundle, request, handlers) {
   bundle.request = url.parse(request.url);
   bundle.request.headers = request.headers;
   bundle.request.method = request.method;
   bundle.request.agent = false;
   bundle.request.body = bundle.reqBody;
 
-  whisper(bundle, handlers);
+  basil.whisper(bundle, handlers);
 };
 
 /**
  * Build response bundle from origin and middlewares
  */
 
-var dehydrate = function (bundle, response, handlers) {
+basil.dehydrate = function (bundle, response, handlers) {
   bundle.response = {};
   bundle.response.status = response.statusCode;
   bundle.response.headers = response.headers;
   bundle.response.body = bundle.resBody;
 
-  whisper(bundle, handlers);
+  basil.whisper(bundle, handlers);
 };
 
 /**
  * Exec all the middlewares
  */
 
-var whisper = function (bundle, handlers) {
+basil.whisper = function (bundle, handlers) {
   handlers.forEach(function (handler) {
     handler(bundle);
   });
