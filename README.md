@@ -16,7 +16,6 @@ var basil = require('basil');
 var app = basil();
 
 app.listen(8000);
-
 ```
 
 
@@ -29,12 +28,11 @@ var app = basil();
 app.use(function (bundle) {
   if (!bundle.response) {
     console.log(bundle.request.headers);
-    console.log(bundle.request.body);
+    console.log(bundle.request.body.toString());
   } 
 });
 
 app.listen(8000);
-
 ```
 
 ### 3. Log all the responses
@@ -46,7 +44,7 @@ var app = basil();
 app.use(function (bundle) {
   if (bundle.response) {
     console.log(bundle.response.headers);
-    console.log(bundle.response.body);
+    console.log(bundle.response.body.toString());
   } 
 });
 
