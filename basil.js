@@ -57,7 +57,7 @@ Basil.prototype.wakeup = function (clientRequest, response) {
   console.log('wakeup');
 
   clientRequest.on('data', function (buf) {
-    bundle.reqBody = Buffer.concat(bundle.reqBody, buf);
+    bundle.reqBody = Buffer.concat([bundle.reqBody, buf]);
   });
 
   clientRequest.on('end', function () {
@@ -73,7 +73,7 @@ basil.repeat = function (bundle, clientRequest, response, handlers) {
   basil.hydrate(bundle, clientRequest, handlers);
   var proxyRequest = http.request(bundle.request, function(serverResponse) {
     serverResponse.on('data', function (buf) {
-      bundle.resBody = Buffer.concat(bundle.resBody, buf);
+      bundle.resBody = Buffer.concat([bundle.resBody, buf]);
     });
 
     serverResponse.on('end', function (buf) {
