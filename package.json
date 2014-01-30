@@ -1,6 +1,6 @@
 {
   "name": "basil",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Middleware oriented proxy",
   "main": "basil.js",
   "scripts": {
@@ -11,7 +11,8 @@
     "url": "git://github.com/dawicorti/basil"
   },
   "keywords": [
-    "proxy"
+    "proxy",
+    "middleware"
   ],
   "author": "David Corticchiato",
   "license": "MIT",

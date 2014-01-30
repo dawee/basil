@@ -65,3 +65,22 @@ app.use(function (bundle) {
 
 app.listen(8000);
 ```
+
+## What's the bundle object ?
+
+As you see, your functions are called for each requests and responses.
+Everytime you'll get a **bundle object**.
+
+Here is its structure :
+
+* **bundle.request** : the options object you usually give to [http.request](http://nodejs.org/api/http.html#http_http_request_options_callback)
+* **bundle.request.headers** : An object model of the HTTP headers the client sent.
+* **bundle.request.body** : the [Buffer](http://nodejs.org/api/buffer.html) object of the request body (normally in POST requests).
+
+In case you are response side you'll get :
+
+* **bundle.response.status** : The status code that will be returned
+* **bundle.response.headers** : An object model of the HTTP headers the client will receive.
+* **bundle.response.body** : the [Buffer](http://nodejs.org/api/buffer.html) object of the returned data.
+
+In the bundle object, **everything can be read/write.**
