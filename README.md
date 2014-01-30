@@ -83,4 +83,4 @@ In case you are response side you'll get :
 * **bundle.response.headers** : An object model of the HTTP headers the client will receive.
 * **bundle.response.body** : the [Buffer](http://nodejs.org/api/buffer.html) object of the returned data.
 
-In the bundle object, **everything can be read/write.**
+In the bundle object, **everything can be read/written.**
