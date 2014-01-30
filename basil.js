@@ -54,8 +54,6 @@ Basil.prototype.wakeup = function (clientRequest, response) {
   var handlers = this.handlers;
   var bundle = {request: {}, reqBody: new Buffer(0), resBody: new Buffer(0)};
 
-  console.log('wakeup');
-
   clientRequest.on('data', function (buf) {
     bundle.reqBody = Buffer.concat([bundle.reqBody, buf]);
   });
