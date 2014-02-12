@@ -20,6 +20,7 @@
     "url": "https://github.com/dawicorti/basil/issues"
   },
   "devDependencies": {
-    "mocha": "~1.17.1"
+    "mocha": "~1.17.1",
+    "istanbul": "~0.2.4"
   }
 }
